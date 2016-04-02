@@ -1,0 +1,28 @@
+<!-- this is so that in the future we may have a few different main pages -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+     <title>Jumbotron Template for Bootstrap</title>
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/custom.css">
+
+  </head>
+
+  <body>
+    <% include ./partials/navbar %>
+
+      <div class="container">
+
+      <%- body -%>
+      <!-- this is connected to ejs-mate -->
+
+
+    </div> <!-- /container -->
+    <% include ./partials/footer %>
+
+  </body>
+</html>
