@@ -6,18 +6,34 @@
             <span class="sr-only">Toggle navigation</span>
           
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
+
+    <a class="navbar-brand" href="#">Project name</a>
+    </div>
+  
+      <ul class="nav navbar-nav navbar-right">
+
+      <% if (!user) { %>
+        <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> Signup | Login</a>
+          <ul class="dropdown-menu">
+            <li><a href="/signup">Signup</a></li>
+            <li><a href="/login">Login</a></li>    
+          </ul>
+        </li>
+
+
+      <% } else { %>
+          <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> <%= user.profile.name %></a>
+          <ul class="dropdown-menu">
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>    
+          </ul>
+        </li>
+
+      <% } %>
+      </ul>
+
+   
+  
+
+    </div>
+</nav>

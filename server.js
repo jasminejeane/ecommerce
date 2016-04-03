@@ -78,6 +78,11 @@ app.use(passport.initialize());
 // from the client cookie into the true deserialized user object
 
 app.use(passport.session());
+app.use(function(req, res, next){
+
+  res.locals.user = req.user;
+
+});
 
 
 // to see the value of the cookie
