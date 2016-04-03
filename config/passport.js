@@ -95,7 +95,6 @@ function(req, email, password, done){
 
 
 
-// module.exports = 
 
 
 

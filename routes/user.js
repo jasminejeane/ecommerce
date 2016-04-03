@@ -78,15 +78,25 @@ router.post('/signup', function(req, res, next){
       }
       else {
 
-        user.save(function (err, user){
+      user.save(function (err, user){
 
-          if (err) return next(err);
-            return res.redirect('/');
+        if (err) return next(err);
+          return res.redirect('/');
 
-         });
-        } 
-      });
-    });
+     });
+    } 
+  });
+});
+
+
+router.get('/logout', function(req, res, next){
+// thisis it for logout. It seems to apparently already
+// be an embedded function.
+// its saying logout of current request
+  req.logout();
+  res.redirect('/');
+
+});
 
 
 module.exports = router;

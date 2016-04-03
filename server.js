@@ -78,10 +78,17 @@ app.use(passport.initialize());
 // from the client cookie into the true deserialized user object
 
 app.use(passport.session());
+
+// this function below will have every user able to
+// have the user object by default in every route
+// without having to specify the object in every route
+// why did we not use the universal /* here 
 app.use(function(req, res, next){
 
+// whats does locals mean- local variable
+// user is the name of the object you want to use
   res.locals.user = req.user;
-
+  next();
 });
 
 
