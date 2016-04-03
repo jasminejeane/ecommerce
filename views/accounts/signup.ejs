@@ -6,6 +6,8 @@
 		
 		<!-- are method and action the same on the post form -->
 		<!-- where did we define errors -->
+		<!-- We went back to define errors in the user routes
+		as the second parameter in the res.render on the get route -->
 		<% if (errors.length > 0){ %>
 			<div class='alert alert-danger alert-dismissable'>
 				<button type='button' class='close' data-dismiss='alert' aria-label='Close'>

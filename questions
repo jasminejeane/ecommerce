@@ -1,3 +1,9 @@
 What is 'form data' on postman
 
 <!-- are method and action the same on the post form -->
+
+http is stateless... what does stateless mean again -
+HTTP is a stateless protocol, which means that the connection between the browser and the server is lost once the transaction ends.
+
+cookie & sessions 
+https://www.udemy.com/build-an-amazon-clone-nodejs-stripe-elasticsearch/learn/v4/t/lecture/4302774

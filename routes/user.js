@@ -8,6 +8,8 @@ var User = require('../models/user');
 
 router.get('/signup', function(req, res, next){
 
+// this might provide info about second cb
+// http://webapplog.com/url-parameters-and-routing-in-express-js/
   res.render('accounts/signup', {
 
     errors: req.flash('errors')

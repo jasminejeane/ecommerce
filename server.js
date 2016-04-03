@@ -15,14 +15,24 @@ var cookieParser = require('cookie-parser');
 // on value cookie to retrieve information stored on the server 
 // server side storage
 // cookies store on the visitors browser
+// cookies has sessions encryted in their cookies
 var flash = require('express-flash');
+var MongoStore = require('connect-mongo')(session);
+// this is the db for storing the session
+// this will be saved into mongo db 
+// mongo store is specifically to store sessions on the server side
+// mongo store library is depending on expression session
+// we need to know that a session will be based on an express
+// session library
+
 
 var app = express();
 
+var secret =require('./config/secret');
 var User = require('./models/user');
 
-
-
+// config files store database information 
+// passport is a library for authenticatin
 
 // connect mongoose to the db
 //  'mongodb://...' is a path to the database
@@ -30,7 +40,7 @@ var User = require('./models/user');
 // we studued just a path to the local host and maybe a route 
 // connection
 
-mongoose.connect('mongodb://ecom:abc123@ds011790.mlab.com:11790/ecommerce', function(err){
+mongoose.connect(secret.database, function(err){
 
   if (err) {
 
@@ -52,8 +62,7 @@ app.use(session({
 
   resave: true,
   saveUninitialized: true,
-  secret: "Jazzxoxoxo"
-
+  secret: secret.secretKey
 }));
 
 // flash is dependent on session and cookie
@@ -87,10 +96,10 @@ app.use(userRoutes);
 
 
 
-app.listen(3000, function(err) {
+app.listen(secret.port, function(err) {
 
   if (err) throw err;
-  console.log("Server is Running on Port 3000");
+  console.log("Server is Running on Port" + secret.port);
 });
 
 

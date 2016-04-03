@@ -98,7 +98,7 @@ UserSchema.methods.comparePassword = function(password){
 };
 
 
-
+// where will we be  using the model name 'User'
 module.exports = mongoose.model('User', UserSchema);
 
 
