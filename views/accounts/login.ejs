@@ -1,0 +1,44 @@
+
+<% layout('layout') -%>
+
+<div class= 'row'>
+	<div class='col-lg-6 col-md-offset-3'>
+		
+		<!-- are method and action the same on the post form -->
+		<!-- where did we define errors -->
+		<!-- We went back to define errors in the user routes
+		as the second parameter in the res.render on the get route -->
+		<% if (message.length > 0){ %>
+			<div class='alert alert-danger alert-dismissable'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+					<span aria-hidden='true'>&times;</span>
+				</button>
+				<%= message %>
+				<!-- a little different from sign up. Its should be message bc that is the logic used for login on the routes page -->
+			</div>
+
+
+		<% } %>
+	<form method='post'>
+
+	<h1>Login</h1>
+
+		<div class='form-group'>
+			<label> Email: </label>
+			<input type="text" class='form-control' name='email'>
+		</div>
+		<div class='form-group'>
+		
+			<label> Password: </label>
+			<input type="text" class='form-control' name='password'>
+		</div>
+
+		<button type="submit" class="btn btn-success">Submit</button>
+
+	</form>
+
+
+
+	</div>
+
+</div>

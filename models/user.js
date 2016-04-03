@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 // a library to hash a password before saved
 // to the database
 var bcrypt = require('bcrypt-nodejs');
+ 
 
 var Schema = mongoose.Schema;
 
@@ -99,6 +100,7 @@ UserSchema.methods.comparePassword = function(password){
 
 
 // where will we be  using the model name 'User'
+// just used it on passport js to get the user id
 module.exports = mongoose.model('User', UserSchema);
 
 

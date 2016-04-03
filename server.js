@@ -17,22 +17,25 @@ var cookieParser = require('cookie-parser');
 // cookies store on the visitors browser
 // cookies has sessions encryted in their cookies
 var flash = require('express-flash');
-var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo/es5')(session);
 // this is the db for storing the session
 // this will be saved into mongo db 
 // mongo store is specifically to store sessions on the server side
 // mongo store library is depending on expression session
 // we need to know that a session will be based on an express
 // session library
+var passport = require('passport');
 
-
-var app = express();
+// oauth login support
 
 var secret =require('./config/secret');
 var User = require('./models/user');
 
 // config files store database information 
-// passport is a library for authenticatin
+// passport is a library for authentication
+
+var app = express();
+
 
 // connect mongoose to the db
 //  'mongodb://...' is a path to the database
@@ -52,7 +55,8 @@ mongoose.connect(secret.database, function(err){
 
 });
 
-// middleware.. yosu need a middleware to run morgan
+// middleware.. almost everything you require 
+// you have to use
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -62,11 +66,18 @@ app.use(session({
 
   resave: true,
   saveUninitialized: true,
-  secret: secret.secretKey
+  secret: secret.secretKey,
+  store: new MongoStore({url: secret.database, autoReconnect: true})
 }));
 
 // flash is dependent on session and cookie
 app.use(flash());
+app.use(passport.initialize());
+// acts as a middleware to alter the req object
+// and change the user value that is currently the session id
+// from the client cookie into the true deserialized user object
+
+app.use(passport.session());
 
 
 // to see the value of the cookie
