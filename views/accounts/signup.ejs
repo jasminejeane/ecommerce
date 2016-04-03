@@ -5,6 +5,17 @@
 	<div class='col-lg-6 col-md-offset-3'>
 		
 		<!-- are method and action the same on the post form -->
+		<!-- where did we define errors -->
+		<% if (errors.length > 0){ %>
+			<div class='alert alert-danger alert-dismissable'>
+				<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+					<span aria-hidden='true'>&times;</span>
+				</button>
+				<%= errors %>
+			</div>
+
+
+		<% } %>
 	<form method='post'>
 
 	<h1>Sign Up</h1>

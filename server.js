@@ -6,18 +6,21 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
-// var session = require('session');
+var session = require('express-session');
 // session id is an encryption signature
-// var cookieParser = require('cookie-parser');
+// session is stored on the server
+// session doesn't persist after browser is closed 
+var cookieParser = require('cookie-parser');
 // users cookies to store a session id in a users browser
-//  on value cookie to retrieve information stored on the server 
-// var flash = require('express-flash');
+// on value cookie to retrieve information stored on the server 
+// server side storage
+// cookies store on the visitors browser
+var flash = require('express-flash');
 
 var app = express();
 
 var User = require('./models/user');
-var mainRoutes = require('./routes/main');
-var userRoutes = require('./routes/user');
+
 
 
 
@@ -44,16 +47,41 @@ app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(mainRoutes);
-app.use(userRoutes);
+app.use(cookieParser());
+app.use(session({
+
+  resave: true,
+  saveUninitialized: true,
+  secret: "Jazzxoxoxo"
+
+}));
+
+// flash is dependent on session and cookie
+app.use(flash());
+
+
+// to see the value of the cookie
+app.get('/*', function(req, res, next){
+
+  if(typeof req.cookies['connet.sid'] !== 'undefined'){
+
+    console.log(req.cookies['connect.sid']);
+  }
+
+  next();
+});
+
+
 
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
+var mainRoutes = require('./routes/main');
+var userRoutes = require('./routes/user');
 
-
-
+app.use(mainRoutes);
+app.use(userRoutes);
 
 
 

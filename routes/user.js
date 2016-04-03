@@ -8,7 +8,10 @@ var User = require('../models/user');
 
 router.get('/signup', function(req, res, next){
 
-  res.render('accounts/signup');
+  res.render('accounts/signup', {
+
+    errors: req.flash('errors')
+  });
 
 });
 
@@ -23,7 +26,7 @@ router.post('/signup', function(req, res, next){
 
   User.findOne({email: req.body.email }, function(err, existingUser){
     if (existingUser){
-      console.log(req.body.email + 'is already an existing User' );
+        req.flash('errors', 'Account with that email address already exists');
         return res.redirect('/signup');
       }
       else {
@@ -31,12 +34,12 @@ router.post('/signup', function(req, res, next){
         user.save(function (err, user){
 
           if (err) return next(err);
-            res.json('New user has been created');
+            return res.redirect('/');
 
          });
         } 
+      });
     });
-});
 
 
 module.exports = router;
