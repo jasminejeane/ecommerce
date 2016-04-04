@@ -34,7 +34,9 @@ var User = require('./models/user');
 // config files store database information 
 // passport is a library for authentication
 
-var User = require('./models/category');
+var Category = require('./models/category');
+var Product = require('./models/product');
+
 
 
 var app = express();
@@ -102,9 +104,16 @@ app.use(function(req, res, next){
 // we got the req.user made with serialize.. why wasn't category 
 // serialized ??
 Category.find({}, function(err, categories){
-
+// the above means we are finding all the categories in this object
+// if you don't put anything in the brackets that means that you want all
+// the categories documents in the db
   if (err)
     return next(err);
+  // this is storing that list of categories in a local variable named
+  //  categories..... you can name local.___ anything but we name it
+  // locals.categories
+  // what is a local variable ??
+  // we are going to use this local variable we created in the navbar
   res.locals.categories = categories;
 
   next();
@@ -133,10 +142,17 @@ app.set('view engine', 'ejs');
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin');
+var apiRoutes = require('./api/api');
 
 app.use(mainRoutes);
 app.use(userRoutes);
 app.use(adminRoutes);
+// we are adding 'api' here so that all the apis
+// associated w/ this routes file will will be a sub url
+// of api. This allows us to avoid prefixing all the api's
+// that could come up with api/...
+app.use('/api',apiRoutes);
+
 
 
 
