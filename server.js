@@ -34,6 +34,9 @@ var User = require('./models/user');
 // config files store database information 
 // passport is a library for authentication
 
+var User = require('./models/category');
+
+
 var app = express();
 
 
@@ -91,6 +94,23 @@ app.use(function(req, res, next){
   next();
 });
 
+app.use(function(req, res, next){
+// in the catergories case we have to query it in order to
+// store it in the local variable below
+// as opposed to the above middlewae for users
+// we already the req.user object so we don't have to query it
+// we got the req.user made with serialize.. why wasn't category 
+// serialized ??
+Category.find({}, function(err, categories){
+
+  if (err)
+    return next(err);
+  res.locals.categories = categories;
+
+  next();
+
+  });
+});
 
 // to see the value of the cookie
 app.get('/*', function(req, res, next){
@@ -109,11 +129,14 @@ app.get('/*', function(req, res, next){
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
+// all route files need to be required in the server
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
 
 app.use(mainRoutes);
 app.use(userRoutes);
+app.use(adminRoutes);
 
 
 
