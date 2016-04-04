@@ -57,6 +57,7 @@ router.get('/signup', function(req, res, next){
   res.render('accounts/signup', {
 
 // where did we define errors
+      // i believe errors are defined below in the post signup route 
     errors: req.flash('errors')
   });
 
@@ -74,6 +75,7 @@ router.post('/signup', function(req, res, next){
 
   User.findOne({email: req.body.email }, function(err, existingUser){
     if (existingUser){
+      // i believe errors are defined here related to signup get above
         req.flash('errors', 'Account with that email address already exists');
         return res.redirect('/signup');
       }
@@ -100,12 +102,51 @@ router.post('/signup', function(req, res, next){
 
 
 router.get('/logout', function(req, res, next){
-// thisis it for logout. It seems to apparently already
+// this is it for logout. It seems to apparently already
 // be an embedded function.
 // its saying logout of current request
   req.logout();
   res.redirect('/');
 
+});
+
+router.get('/edit-profile', function(req, res, next){
+  res.render('accounts/edit-profile', {message: req.flash('success')});
+
+});
+
+
+router.post('/edit-profile', function(req, res, next){
+  //  User.findOne is finding by id the user that is currently logged in
+  User.findOne({_id: req.user._id}, function(err, user){
+
+    if (err) 
+      return next(err);
+
+    // if input text has name or address 
+    // replace the data in the db with what you type in
+    // so (req.body.name) is the input field and we are making that =
+    // user.profile.name
+    if (req.body.name) 
+      user.profile.name =req.body.name;
+    if (req.body.address) 
+      user.profile.address = req.body.address;
+
+
+
+    // savethe users data and..
+    // store the flash in a session ??/
+    //  the flash success is connected with other routes that have
+    // success named in that routes
+    // need to read more about flash
+    user.save(function(err){
+      if (err) 
+        return next(err);
+
+      req.flash('success', 'Successfully Edited your profile');
+      return res.redirect('/edit-profile');
+    });
+  });
 });
 
 
