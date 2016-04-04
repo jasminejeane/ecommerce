@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 // a library to hash a password before saved
 // to the database
 var bcrypt = require('bcrypt-nodejs');
- 
+// you don't need to install crypto bc it is a built in
+// js library
+var crypto = require('crypto');
 
 var Schema = mongoose.Schema;
 
@@ -95,6 +97,31 @@ UserSchema.pre('save', function(next){
 
 UserSchema.methods.comparePassword = function(password){
   return bcrypt.compareSync(password, this.password);
+
+};
+
+
+
+// gravatar
+
+UserSchema.methods.gravatar = function(size) {
+ 
+// if there is no size to be specified make it 200 by default
+  if (!this.size) size =200;
+  // this link is an API from gravatar
+  // meaning we can use one of their routes to add a profile picture
+  // if its not the users email that logged in return a random image
+  if (!this.email) return 'https://gravatar.com/avatar/?s' + size + '&d=retro';
+  // if it is the users email hash it into md5 encryption 
+  // so that each user will have a unique image
+  // why couldn't we have done that with just adding their img link to 
+  // the db connected w/ their profile 
+  // crypto is a built in node.js library
+  var md5 = crypto.createHash('md5').update(this.email).digest('hex');
+  // we return it with the md5 added to the url so it is
+  // unique to the user
+  return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
+
 
 };
 
