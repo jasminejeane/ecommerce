@@ -6,7 +6,7 @@ var User = require('../models/user');
 var passport = require('passport');
 // to use a passport built in function
 var passportConf = require('../config/passport');
-
+var async = require('async');
 
 
 
@@ -66,7 +66,11 @@ router.get('/signup', function(req, res, next){
 
 router.post('/signup', function(req, res, next){
 
-  var user = new User();
+  async.waterfall([
+
+    function(callback){
+
+      var user = new User();
 
   user.profile.name = req.body.name;
   user.email = req.body.email;
@@ -84,21 +88,33 @@ router.post('/signup', function(req, res, next){
       user.save(function (err, user){
 
         if (err) return next(err);
+        callback(null, user);
 
-
-// logIn is a function thats adding a session to
-// the server and a cookie to the browser
-// simply redirecting wouldn't store the session/cookie
-
-      req.logIn(user, function(err){
-        if (err) return next(err);
-        res.redirect('/profile');
 
       });
+     } 
+    });
+  },
+// 49s
+    function(user) {
+      var cart = new Cart();
+      cart.owner = user._id;
+      cart.save(function(err){
+       if (err) return next(err);
+    // logIn is a function thats adding a session to
+    // the server and a cookie to the browser
+    // simply redirecting wouldn't store the session/cookie
+       req.logIn(user, function(err){
+        if (err) return next(err);
+       res.redirect('/profile');
+      });
      });
-    } 
-   });
-  });
+    }
+   ]);
+
+  
+
+
 
 
 router.get('/logout', function(req, res, next){

@@ -8,6 +8,9 @@ var Product = require('../models/product');
 // going to wait and see for that
 
 
+var router = require('express').Router();
+var faker = require('faker');
+
 
 // I wonder if all of this can be done
 // differently in a seed.js file
@@ -19,6 +22,20 @@ var Product = require('../models/product');
 // this is specifically related to category
 // so the :name types there will replace the content
 // of eq.params.name in the function below
+
+
+// CP - need further breakdown of this code
+
+router.post('/search', function(req, res, next){
+  console.log(req.body.search_term);
+  Product.search({
+    query_string: {query: req.body.search_term }
+  }, function(err, results) {
+      if (err) return next(err); 
+      res.json(results);
+ });
+});
+
 
 router.get('/:name', function(req, res, next){
 

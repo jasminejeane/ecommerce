@@ -25,8 +25,8 @@ var MongoStore = require('connect-mongo/es5')(session);
 // we need to know that a session will be based on an express
 // session library
 var passport = require('passport');
-
 // oauth login support
+
 
 var secret =require('./config/secret');
 var User = require('./models/user');
