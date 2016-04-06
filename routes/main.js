@@ -77,6 +77,26 @@ stream.on('error', function(err){
     console.log(err);
 });
 
+
+// this is a single product page for purchasing a product
+// 51
+router.post('/product/:product_id', function(req, res, next){
+  Cart.findOne({ owner: req.user._id}, function(err, cart){
+    cart.items.push({
+      item: req.body.product_id,
+      price: parseFloat(req.body.priceValue),
+      quantity: parseInt(req.body.quantity)
+    });
+
+    cart.total = (cart.total + parseFloat(req.body.priceValue)).toFixed(2);
+      
+      cart.save(function(err){
+        if (err) return next(err);
+        return res.redirect('/cart');
+    });
+  });
+});
+
 // go to this (/search) route and pass the 
 // message along with you (req.body.q)
 // im thinking (req.body.q) is the body of the 
