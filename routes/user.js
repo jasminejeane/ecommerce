@@ -3,10 +3,12 @@
 
 var router = require('express').Router();
 var User = require('../models/user');
+var Cart = require('../models/cart');
+var async = require('async');
 var passport = require('passport');
 // to use a passport built in function
 var passportConf = require('../config/passport');
-var async = require('async');
+
 
 
 
@@ -84,17 +86,14 @@ router.post('/signup', function(req, res, next){
         return res.redirect('/signup');
       }
       else {
-
       user.save(function (err, user){
 
         if (err) return next(err);
         callback(null, user);
-
-
       });
      } 
     });
-  },
+   },
 // 49s
     function(user) {
       var cart = new Cart();
@@ -111,9 +110,7 @@ router.post('/signup', function(req, res, next){
      });
     }
    ]);
-
-  
-
+ });
 
 
 
@@ -144,7 +141,7 @@ router.post('/edit-profile', function(req, res, next){
     // so (req.body.name) is the input field and we are making that =
     // user.profile.name
     if (req.body.name) 
-      user.profile.name =req.body.name;
+      user.profile.name = req.body.name;
     if (req.body.address) 
       user.address = req.body.address;
 
@@ -167,8 +164,3 @@ router.post('/edit-profile', function(req, res, next){
 
 
 module.exports = router;
-
-
-
-
-
