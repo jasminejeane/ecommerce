@@ -68,7 +68,7 @@ $(document).on('click', '#plus', function(e){
   $('#priceValue').val(priceValue.toFixed(2));
   // this is the quantity shown to the user
   $('#total').html(quantity);
-});
+
 
 //  if the quantity is one we want to keep the quanity to 
 // only one
@@ -82,6 +82,8 @@ if (quantity == 1){
   priceValue -= parseFloat($('#priceHidden').val());
   quantity -= 1;
 }
+
+});
 
 $(document).on('click', '#minus', function(e){
   e.preventDefault();

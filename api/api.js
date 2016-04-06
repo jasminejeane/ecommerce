@@ -8,9 +8,6 @@ var Product = require('../models/product');
 // going to wait and see for that
 
 
-var router = require('express').Router();
-var faker = require('faker');
-
 
 // I wonder if all of this can be done
 // differently in a seed.js file

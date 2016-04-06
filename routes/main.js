@@ -5,6 +5,7 @@ var router = require('express').Router();
 var User = require('../models/user');
 var Product = require('../models/product');
 // it seems like category would need to be required too
+var Cart = require('../models/cart');
 
 function paginate(req, res, next){
   var perPage = 9;
@@ -79,7 +80,20 @@ stream.on('error', function(err){
 
 
 // cart route
+router.get('/cart', function(req, res, next){
+    Cart
+      .findOne({ owner: req.user._id })
+      // this is where we get the img name, product, price & product
+      .populate('items.item') 
+      .exec(function(err, foundCart) {
+        if (err) return next(err);
+                  console.log("found cart is " + foundCart);
 
+        res.render('main/cart', {
+          foundCart: foundCart
+       });
+      });
+    });
 
 // this is a single product page for purchasing a product
 // 51

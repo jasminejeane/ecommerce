@@ -48,9 +48,7 @@ var app = express();
 // connection
 
 mongoose.connect(secret.database, function(err){
-
   if (err) {
-
     console.log(err);
   }
   else{
@@ -123,11 +121,6 @@ Category.find({}, function(err, categories){
   });
 });
 
-
-
-
-
-
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 
@@ -160,9 +153,6 @@ app.get('/*', function(req, res, next){
 
   next();
 });
-
-
-
 
 app.listen(secret.port, function(err) {
 

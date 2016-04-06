@@ -4,8 +4,6 @@ var mongoose = require('mongoose');
 // this allows us not to have to write addt'l code to connect us
 // to elastic and mongo db
 var mongoosastic = require('mongoosastic');
-
-
 var Schema = mongoose.Schema;
 
 
@@ -31,11 +29,5 @@ ProductSchema.plugin(mongoosastic, {
 
   ]
 });
-
-
-
-
-
-
 
  module.exports = mongoose.model('Product', ProductSchema);
