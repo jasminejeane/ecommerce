@@ -78,6 +78,9 @@ stream.on('error', function(err){
 });
 
 
+// cart route
+
+
 // this is a single product page for purchasing a product
 // 51
 router.post('/product/:product_id', function(req, res, next){

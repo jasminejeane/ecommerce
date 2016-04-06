@@ -48,3 +48,56 @@ $(function() {
     });
   });
 });
+
+
+
+
+// 53 
+$(document).on('click', '#plus', function(e){
+  e.preventDefault();
+  var priceValue = parseFloat($('#priceValue').val());
+  // since quantity has no decimal we parse it into Int form
+  var quantity = parseInt($('#quantity').val());
+
+  priceValue += parseFloat($('#priceHidden').val());
+  quantity += 1;
+
+// this is the hidden input on (product.ejs page)
+  $('#quantity').val(quantity);
+  // this limits the decimal to two
+  $('#priceValue').val(priceValue.toFixed(2));
+  // this is the quantity shown to the user
+  $('#total').html(quantity);
+});
+
+//  if the quantity is one we want to keep the quanity to 
+// only one
+// this is intersting wondering why we did not do a less than
+// one function for it to work
+if (quantity == 1){
+  priceValue = $('#priceHidden').val();
+  quantity = 1;
+} else {
+
+  priceValue -= parseFloat($('#priceHidden').val());
+  quantity -= 1;
+}
+
+$(document).on('click', '#minus', function(e){
+  e.preventDefault();
+  var priceValue = parseFloat($('#priceValue').val());
+  var quantity = parseInt($('#quantity').val());
+
+  
+
+  $('#quantity').val(quantity);
+  $('#priceValue').val(priceValue.toFixed(2));
+  $('#total').html(quantity);
+});
+
+
+
+
+
+
+
