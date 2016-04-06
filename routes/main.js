@@ -7,6 +7,9 @@ var Product = require('../models/product');
 // it seems like category would need to be required too
 var Cart = require('../models/cart');
 
+// the key below is the test key
+var stripe = require('stripe') ('sk_test_ZBiXT7qOHzxoxqnYurIiYW8t');
+
 function paginate(req, res, next){
   var perPage = 9;
     var page = req.params.page;
@@ -86,11 +89,13 @@ router.get('/cart', function(req, res, next){
       // this is where we get the img name, product, price & product
       .populate('items.item') 
       .exec(function(err, foundCart) {
+        console.log("found cart is", foundCart);
         if (err) return next(err);
-                  console.log("found cart is " + foundCart);
-
         res.render('main/cart', {
-          foundCart: foundCart
+          foundCart: foundCart,
+          // just added 
+          message: req.flash('remove')
+
        });
       });
     });
@@ -100,7 +105,7 @@ router.get('/cart', function(req, res, next){
 router.post('/product/:product_id', function(req, res, next){
   Cart.findOne({ owner: req.user._id}, function(err, cart){
     cart.items.push({
-      item: req.body.product_id,
+      item: req.body["product._id"], //look for product_id
       price: parseFloat(req.body.priceValue),
       quantity: parseInt(req.body.quantity)
     });
@@ -110,6 +115,19 @@ router.post('/product/:product_id', function(req, res, next){
       cart.save(function(err){
         if (err) return next(err);
         return res.redirect('/cart');
+    });
+  });
+});
+
+// 56
+router.post('/remove', function(req, res, next){
+    Cart.findOne({ owner: req.user._id}, function(err, cart){
+      foundCart.items.pull(String(req.body.item));
+      foundCart.total = (foundCart.total - parseFloat(req.body.price)).toFixed(2);
+      foundCart.save(function(err, found){
+       if (err) return next(err);
+       req.flash('remove', 'Successfully removed');
+       res.redirect('/cart');
     });
   });
 });
@@ -219,6 +237,38 @@ router.get('/product/:id', function(req, res, next){
     });
   });
 
+
+// payment route
+
+// for test payment cc info 
+// go to https://stripe.com/docs/testing
+// scroll down to --Which card numbers should I use for testing?
+
+router.post('/payment', function(req, res, next) {
+
+// we are getting stripe token on the client side bc we are using req.body
+  var stripeToken = req.body.stripeToken;
+  // this is the total price of your cart
+  // we are * by 100 bc stripe is made in cents
+  var currentCharges = Math.round(req.body.stripeMoney * 100);
+  // everything before .then is a stripe method to create a customer
+  // you can see which user who bouht your items with this function
+  stripe.customers.create({
+    source: stripeToken,
+      // this is using a promise.. after the code above runs then it 
+    // will run the next code
+  }).then(function(customer) {
+    // this is all the information so that you can charge the customer
+    return stripe.charges.create({
+      // this is connected to currentCharges above
+      amount: currentCharges,
+      currency: 'usd',
+      customer: customer.id
+    });
+  });
+
+  res.redirect('/profile');
+});
 
 
 module.exports = router;

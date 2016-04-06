@@ -9,7 +9,7 @@ var CartSchema = new Schema({
   items: [{
     item: { type: Schema.Types.ObjectId, ref: 'Product'},
     quantity: {type: Number, default: 1},
-    price: {type: Number, default: 0}
+    price: {type: Number, default: 0},
 
  }]
 });

@@ -5,6 +5,11 @@
 // instance search
 
 $(function() {
+// Stripe publishing Key 
+// format taken from (https://stripe.com/docs/custom-form)
+// key below is actually my Test PublishableKey
+// this is for the client ??
+  Stripe.setPublishableKey('pk_test_1dgi3umhSBiRQxHkBsjuJemD');
 
   $('#search').keyup(function(){
 
@@ -50,8 +55,6 @@ $(function() {
 });
 
 
-
-
 // 53 
 $(document).on('click', '#plus', function(e){
   e.preventDefault();
@@ -69,6 +72,48 @@ $(document).on('click', '#plus', function(e){
   // this is the quantity shown to the user
   $('#total').html(quantity);
 
+
+
+// code to handle stripe take from (https://stripe.com/docs/custom-form)
+// 59
+function stripeResponseHandler(status, response) {
+ // to take all the data from the input
+  var $form = $('#payment-form');
+
+  if (response.error) {
+    // Show the errors on the form
+    $form.find('.payment-errors').text(response.error.message);
+    $form.find('button').prop('disabled', false);
+  } else {
+    // response contains id and card, which contains additional card details
+    // this id may be last 4 digits of cc & card type
+    // we set that id to token
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    // this refers to the stripeToken described on main.js
+    // then it sets the value to token 
+    $form.append($('<input type="hidden" name="stripeToken"/>').val(token));
+    // and submit
+    // then resubmit the form here
+    $form.get(0).submit();
+  }
+}
+
+// this is how we inoke the stripeResponseHandler function
+// this is an event handler on the form itself
+$('#payment-form').submit(function(event) {
+  // this would be #payment-form and we set that to the variable $form
+    var $form = $(this);
+
+    // Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+
+    // Prevent the form from submitting with the default action
+    // a default action would be like an empty string, empy cart #
+    return false;
+  });
 
 //  if the quantity is one we want to keep the quanity to 
 // only one
