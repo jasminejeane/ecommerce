@@ -35,8 +35,7 @@ var User = require('./models/user');
 // passport is a library for authentication
 
 var Category = require('./models/category');
-var Product = require('./models/product');
-
+var cartLength = require('./middlewares/middlewares');
 
 
 var app = express();
@@ -96,6 +95,9 @@ app.use(function(req, res, next){
   next();
 });
 
+
+app.use(cartLength);
+
 app.use(function(req, res, next){
 // in the catergories case we have to query it in order to
 // store it in the local variable below
@@ -121,16 +123,7 @@ Category.find({}, function(err, categories){
   });
 });
 
-// to see the value of the cookie
-app.get('/*', function(req, res, next){
 
-  if(typeof req.cookies['connet.sid'] !== 'undefined'){
-
-    console.log(req.cookies['connect.sid']);
-  }
-
-  next();
-});
 
 
 
@@ -154,6 +147,19 @@ app.use(adminRoutes);
 app.use('/api',apiRoutes);
 
 
+
+
+
+// to see the value of the cookie
+app.get('/*', function(req, res, next){
+
+  if(typeof req.cookies['connet.sid'] !== 'undefined'){
+
+    console.log(req.cookies['connect.sid']);
+  }
+
+  next();
+});
 
 
 
