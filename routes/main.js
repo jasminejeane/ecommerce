@@ -6,7 +6,7 @@ var User = require('../models/user');
 var Product = require('../models/product');
 // it seems like category would need to be required too
 var Cart = require('../models/cart');
-
+var async = require('async');
 // the key below is the test key
 var stripe = require('stripe') ('sk_test_ZBiXT7qOHzxoxqnYurIiYW8t');
 
@@ -265,9 +265,52 @@ router.post('/payment', function(req, res, next) {
       currency: 'usd',
       customer: customer.id
     });
+  }).then(function(charge) {
+    async.waterfall([
+      // we are searching the cart owner and once we have found the 
+      // cart we want to pass it to a second function
+      // so we use callback
+      function(callback) {
+        Cart.findOne({ owner: req.user._id }, function(err, cart) {
+          callback(err, cart);
+        });
+      },
+      function(cart, callback) {
+        // this is checking to see if the login user information
+        // exist or not
+        User.findOne({ _id: req.user._id }, function(err, user) {
+          // if the user exists...
+          if (user) {
+            for (var i = 0; i < cart.items.length; i++) {
+              // we are pushing the entire cart.. looping  items and 
+              // price one by one  and pushing it to the user history
+              user.history.push({ 
+                item: cart.items[i].item,
+                paid: cart.items[i].price
+              });
+            }
+            // then when we finish the looping we want to save
+            // then if no errors we want ot pass it to the 
+            // next function
+            user.save(function(err, user) {
+              if (err) return next(err);
+              callback(err, user);
+            });
+          }
+        });
+      },
+      function(user) {
+        // this will check for the newly updated user
+        // $set is like cart.items = []
+        // then reset the total price to $0
+        Cart.update({ owner: user._id }, { $set: { items: [], total: 0 }}, function(err, updated) {
+          if (updated) {
+            res.redirect('/profile');
+          }
+        });
+      }
+    ]);
   });
-
-  res.redirect('/profile');
 });
 
 

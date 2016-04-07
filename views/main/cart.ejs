@@ -33,7 +33,6 @@
 	    	<p><%= foundCart.items[i].item.price %></p>
 
 
-<!-- Just added in  -->
 <!-- We added the hidden input type. we set the req. body to the name of item and price... So we can use it in the input route -->
 	    	   <form method="post" action="/remove">
                     <input type="hidden" name="item" value="<%= foundCart.items[i]._id %>">
