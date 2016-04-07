@@ -1,54 +1,54 @@
 <% layout('layout') -%>
 
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+  <!-- notes on this feature on login.ejs page -->
 
- <div class="container">
-   <div class="row">
-	  <div class="col-lg-6">
+      <% if (message.length > 0) { %>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismmiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= message %>
+        </div>
+        <% } %>
 
-<!-- just added  -->
-<div class= 'row'>
-	<div class='col-lg-6 col-md-offset-3'>
-	<!-- notes on this feature on login.ejs page -->
-		<% if (message.length > 0){ %>
-			<div class='alert alert-danger alert-dismissable'>
-				<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-					<span aria-hidden='true'>&times;</span>
-				</button>
-				<%= message %>	
-			</div>
-		<% } %>
 
-	  <% for (var i= 0; i < foundCart.items.length; i++) { %>
-	  <div class="list-group">
-	   <span class="list-group-item">
-	   <div class="row">
-		<div class="col-md-3">
-			<span><img class="product-image" src="<%= foundCart.items[i].item.image %>" alt=""></span>
-		</div>
-	  	<div class="col-md-6">
-	  	<p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
-	  	</div>
-	    <div class=class="col-md-3">
-	    	<p><%= foundCart.items[i].item.quantity %></p>
-	    	<p><%= foundCart.items[i].item.price %></p>
+        <% for (var i = 0; i < foundCart.items.length; i++) { %>
+          <div class="list-group">
+            <span class="list-group-item">
+              <div class="row">
+                <div class="col-md-3">
+                  <span><img class="product-image" src="<%= foundCart.items[i].item.image %>"></span>
+                </div>
+
+                <div class="col-md-6">
+                  <p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
+                </div>
+                <div class="col-md-3">
+                  <p><%= foundCart.items[i].quantity %></p>
+                  <p><%= foundCart.items[i].price %></p>
 
 
 <!-- We added the hidden input type. we set the req. body to the name of item and price... So we can use it in the input route -->
-	    	   <form method="post" action="/remove">
+                  <form method="post" action="/remove">
                     <input type="hidden" name="item" value="<%= foundCart.items[i]._id %>">
                     <input type="hidden" name="price" value="<%= foundCart.items[i].price %>">
                     <button type="submit" type="button">Remove</button>
                   </form>
+                </div>
 
-	    </div>
-	   </div>
-	 </span>
-	</div>
+              </div>
+            </span>
+          </div>
 
- <% } %>
- </div>
+          <% } %>
 
-  <div class="col-md-3"></div>
+
+        </div>
+
+        <div class="col-md-3"></div>
 
         <div class="col-md-3">
           <div class="list-group">
@@ -60,11 +60,13 @@
                 <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Pay with Stripe</button>
               </div>
             </span>
+
           </div>
         </div>
 
 <!-- modal -->
- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -74,8 +76,7 @@
               <div class="modal-body">
 
 
-
-  <!-- Credit card form -->
+             <!-- Credit card form -->
   <!-- you can get different designs from bootsnipp.com just search (stripe)-->
                 <div class="container">
                   <div class="row">
@@ -86,7 +87,7 @@
                         </div>
                         <div class="panel-body">
                           <form role="form" id="payment-form" action="/payment" method="POST">
-                          <!-- the name 'stripeMoney' refers to the /payment route in main.js  -->
+                             <!-- the name 'stripeMoney' refers to the /payment route in main.js  -->
                           <!-- the reason we need the input hidden field is bc we want to send the value of the total price to the server (main.js) to execute the /payment route-->
                             <input type="hidden" name="stripeMoney" value="<%= foundCart.total %>">
                             <div class="row">
@@ -135,13 +136,10 @@
                     </div>
                   </div>
                 </div>
-
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="row">
@@ -150,4 +148,3 @@
       </div>
 
     </div>
-

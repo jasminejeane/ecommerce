@@ -120,17 +120,18 @@ router.post('/product/:product_id', function(req, res, next){
 });
 
 // 56
-router.post('/remove', function(req, res, next){
-    Cart.findOne({ owner: req.user._id}, function(err, cart){
-      foundCart.items.pull(String(req.body.item));
-      foundCart.total = (foundCart.total - parseFloat(req.body.price)).toFixed(2);
-      foundCart.save(function(err, found){
-       if (err) return next(err);
-       req.flash('remove', 'Successfully removed');
-       res.redirect('/cart');
+router.post('/remove', function(req, res, next) {
+  Cart.findOne({ owner: req.user._id }, function(err, foundCart) {
+    foundCart.items.pull(String(req.body.item));
+    foundCart.total = (foundCart.total - parseFloat(req.body.price)).toFixed(2);
+    foundCart.save(function(err, found) {
+      if (err) return next(err);
+      req.flash('remove', 'Successfully removed');
+      res.redirect('/cart');
     });
   });
 });
+
 
 // go to this (/search) route and pass the 
 // message along with you (req.body.q)
