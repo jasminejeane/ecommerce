@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 // library that uses mongo search to replicate that data from mongo db
 // this allows us not to have to write addt'l code to connect us
 // to elastic and mongo db
-// var mongoosastic = require('mongoosastic');
+var mongoosastic = require('mongoosastic');
 var Schema = mongoose.Schema;
 
 
