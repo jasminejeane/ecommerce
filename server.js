@@ -154,7 +154,7 @@ app.get('/*', function(req, res, next){
   next();
 });
 
-app.listen(secret.port, function(err) {
+app.listen(secret.heroku || secret.port, function(err) {
 
   if (err) throw err;
   console.log("Server is Running on Port" + secret.port);

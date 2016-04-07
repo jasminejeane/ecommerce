@@ -4,6 +4,7 @@ module.exports = {
 
   database: 'mongodb://ecom:abc123@ds011790.mlab.com:11790/ecommerce',
   port: 3000,
+  heroku: process.env.PORT,
   secretKey: 'Jazzxoxoxo'
 };
 
