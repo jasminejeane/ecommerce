@@ -45,41 +45,41 @@ function paginate(req, res, next){
 
 
 // This created a bridge between product db and elsatic search 
-Product.createMapping(function(err, mapping){
+// Product.createMapping(function(err, mapping){
 
-  if (err){
-    console.log("error creating mapping");
-    console.log(err);
-  }
-  else
-  {
-    console.log("Mapping created");
-    console.log(mapping);
-  }
-});
+//   if (err){
+//     console.log("error creating mapping");
+//     console.log(err);
+//   }
+//   else
+//   {
+//     console.log("Mapping created");
+//     console.log(mapping);
+//   }
+// });
 
 
 // this replicates all of the data and puts it in elastic search
-var stream = Product.synchronize();
-var count = 0;
+// var stream = Product.synchronize();
+// var count = 0;
 
 // this counts the amount of documents we have 
-stream.on('data', function(){
-  count ++;
-});
+// stream.on('data', function(){
+//   count ++;
+// });
 
 // this closes the synchronize and console logs the 
 // amount of docs we have all together
-stream.on('close', function(){
-  console.log("Indexed " + count + " documents");
-});
+// stream.on('close', function(){
+//   console.log("Indexed " + count + " documents");
+// });
 
 
 // shows to the user the errors we may have had while
 // counting the amount of documents
-stream.on('error', function(err){
-    console.log(err);
-});
+// stream.on('error', function(err){
+//     console.log(err);
+// });
 
 
 // cart route

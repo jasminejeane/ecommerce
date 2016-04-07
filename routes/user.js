@@ -41,13 +41,20 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 
 
-router.get('/profile', function(req, res, next){
-  User.findOne({ _id: req.user._id}, function(err, user){
-    if (err) 
-      return next(err);
-    res.render('accounts/profile', { user: user});
+// passportConf.isAuthenticated is connected to passport.js
+// this validates the user
+// this will block ppl that are not signed in from going to 
+// the /profile page.. using the function on passport.js 
+router.get('/profile', passportConf.isAuthenticated, function(req, res, next) {
+  User
+    .findOne({ _id: req.user._id })
+    .populate('history.item')
+    // what would the result of foundUser be ??
+    .exec(function(err, foundUser) {
+      if (err) return next(err);
 
-  });
+      res.render('accounts/profile', { user: foundUser });
+    });
 });
 
 
