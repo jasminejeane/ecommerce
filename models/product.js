@@ -21,13 +21,13 @@ var ProductSchema = new Schema({
 
 // a plugin for our product schema
 // this has special features like Product.seach, Product.mapping
-// ProductSchema.plugin(mongoosastic, {
+ProductSchema.plugin(mongoosastic, {
 // local host of the elsatic search
-  // hosts: [
+  hosts: [
   // elastic search runs on this server
-//     'localhost:9200'
+    'localhost:9200'
 
-//   ]
-// });
+  ]
+});
 
  module.exports = mongoose.model('Product', ProductSchema);
