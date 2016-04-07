@@ -21,16 +21,16 @@
             <span class="list-group-item">
               <div class="row">
                 <div class="col-md-3">
-                  <span><img class="product-image" src="<%= foundCart.items[i].item.image %>
-"></span>
-                </div>
+                  <span class="thumbnail"><img class="product-image" src=""></span> 
+                  </div>
+                
 
                 <div class="col-md-6">
                   <p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
                 </div>
                 <div class="col-md-3">
-                  <p><%= foundCart.items[i].quantity %></p>
-                  <p><%= foundCart.items[i].price %></p>
+                  <p>Quantity: <%= foundCart.items[i].quantity %></p>
+                  <p>Price: <%= foundCart.items[i].price %></p>
 
 
 <!-- We added the hidden input type. we set the req. body to the name of item and price... So we can use it in the input route -->
