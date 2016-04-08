@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navBrown navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -7,7 +7,7 @@
           
           </button>
 
-    <a class="navbar-brand" href="/">Ecommerce</a>
+    <a class="navbar-brand" href="/">BoHo GLO</a>
     </div>
 
     <form class="navbar-form navbar-left" method="post" action="/search">
@@ -21,7 +21,7 @@
       <ul class="nav navbar-nav navbar-right">
 
 
-       <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> Categories</a>
+       <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> CATEGORIES</a>
           <ul class="dropdown-menu">
           <% for (var i = 0; i < categories.length; i++) { %>
             <li><a href="/products/<%= categories[i]._id %>"><%= categories[i].name %></a></li>
@@ -32,10 +32,10 @@
         </li>
 
       <% if (!user) { %>
-        <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> Signup | Login</a>
+        <li><a class="dropdown-toggle" data-toggle= "dropdown" href="#"> SIGNUP | LOGIN</a>
           <ul class="dropdown-menu">
-            <li><a href="/signup">Signup</a></li>
-            <li><a href="/login">Login</a></li>    
+            <li><a href="/signup">SIGNUP</a></li>
+            <li><a href="/login">LOGIN</a></li>    
           </ul>
         </li>
 

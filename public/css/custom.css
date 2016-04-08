@@ -3,6 +3,7 @@
 body {
 	padding-top: 100px;
 	margin-bottom: 60px;
+	font-family: 'Geneva';
 
 }
 
@@ -14,10 +15,12 @@ body {
 #navbar-gap {
 
 	margin-top: -4.5%;
-
+	background-color: #282221;
 };
 
-
+.navbar-inverse {
+	background-color: blue !important;
+}
 
 .product-image {
 	width: 100%;
@@ -36,7 +39,10 @@ body {
 
 .titleColor {
 	color: white;
+   font-family: 'Geneva';
+
 }
+
 
 .mTitle {
 
@@ -45,6 +51,20 @@ body {
  text-shadow: 0 0 50px black;
   /*color: rgba(58,142,104, 0.55) !important;*/
 
+}
+
+
+
+.loginNow {
+	margin-top: 15%;
+	margin-left: 50%;
+	font-size: 20px;
+	padding: 10px;
+	padding-left: 60px;
+	padding-right: 60px;
+    font-family: 'Geneva';
+    border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.54);
 }
 
 .alignForm {
@@ -80,6 +100,11 @@ body {
   background-color: rgb(26, 26, 26);
   text-align: center;
   left: 0;
+  	 background: url("/images/bk3.jpg");
+
+
+/*  	background-color: rgba(62,39,35,0.98);
+*/
 
 }
 
@@ -87,6 +112,11 @@ body {
 	height: 100vh;
 }
 
+.front {
+	margin-bottom: 15%;
+}
 
+.navBrown {
+background: url("/images/bk3.jpg");}
 
 
