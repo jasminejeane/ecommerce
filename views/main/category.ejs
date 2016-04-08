@@ -7,11 +7,11 @@
 	  <div class='col-md-4'>
 		<a href="/product/<%= products[i]._id %>">
 		 <div class='thumbnail'>
-		  <img src="">
-		  <div class="caption">
+		  <img class="borderStyle" src="<%= products[i].image %>">
+		  <div class="caption captAlign">
 		  <h3><%= products[i].name %></h3>
-		  <p><%= products[i].category.name %></p>
-		  <p><%= products[i].price %></p>
+		   <p><%= products[i].category.name %></p>
+		  <p> $ <%= products[i].price %></p>
 		  </div>
 		 </div>
 		</a>

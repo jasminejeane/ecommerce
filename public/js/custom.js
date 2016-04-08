@@ -131,19 +131,20 @@ function stripeResponseHandler(status, response) {
 
 // this is how we inoke the stripeResponseHandler function
 // this is an event handler on the form itself
-$('#payment-form').submit(function(event) {
-  // this would be #payment-form and we set that to the variable $form
-    var $form = $(this);
+// $('#payment-form').submit(function(event) {
+//     event.preventDefault();
+//   // this would be #payment-form and we set that to the variable $form
+//     var $form = $(this);
 
-    // Disable the submit button to prevent repeated clicks
-    $form.find('button').prop('disabled', true);
+//     // Disable the submit button to prevent repeated clicks
+//     $form.find('button').prop('disabled', true);
 
-    Stripe.card.createToken($form, stripeResponseHandler);
+//     Stripe.card.createToken($form, stripeResponseHandler);
 
-    // Prevent the form from submitting with the default action
-    // a default action would be like an empty string, empy cart #
-    return false;
-  });
+//     // Prevent the form from submitting with the default action
+//     // a default action would be like an empty string, empy cart #
+//     return false;
+//   });
 
 //  if the quantity is one we want to keep the quanity to 
 // only one

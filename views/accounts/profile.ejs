@@ -1,29 +1,30 @@
 <% layout('layout') -%>
 
+<div class="container profileBg">
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <img class="img-circle img-responsive img-center" src="<%= user.profile.picture %>" alt="">
 
-<div class= "container">
-	<div class= "row">
-		<div class="col-sm-6 col-md-4">
-			<img class="img-circle img-responsive img-center" src="<%= user.profile.picture %>" alt="">
-			<br />
+      <br />
+      <p>Name: <%= user.profile.name %></p>
+      <p>Email: <%= user.email %></p>
 
-			<p> Name: <%= user.profile.name %></p>
-			<p> Email: <%= user.email %></p>
+      <% if (user.address === "" || typeof user.address === 'undefined')  { %>
+        <p>Address: <span style="color: #c0392b; font-weight: bold">Please Edit to add address</span></p>
 
-			<% if (user.address === '' || typeof user.address === 'undefined') { %>
+      <% } else { %>
 
-			<p>Address: <span style="color: #c0392b; font-weight: bold;">We have no address listed for you</span></p>
+      <p>Address: <%= user.address %></p>
 
-			<% } else { %>
+      <% } %>
 
-			<p> Address <%= user.address %></p>
-			<% } %>
-
-			<a href="/edit-profile" class="btn btn-primary btn-lg">Edit Profile</a>
+      <a href="/edit-profile" class="btn btn-default btn-md">Edit Profile</a>
+    </div>
 
 
 <!-- history section of users profile -->
-			 <div class="col-md-6">
+
+    <div class="col-md-6">
       <h2 class="text-center">History</h2>
 
       <table class="table table-striped sticky-header">
@@ -45,8 +46,4 @@
 
     </div>
   </div>
-</div>
-
-		</div>
-	</div>
 </div>

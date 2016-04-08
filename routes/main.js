@@ -8,7 +8,7 @@ var Product = require('../models/product');
 var Cart = require('../models/cart');
 var async = require('async');
 // the key below is the test key
-var stripe = require('stripe') ('sk_test_ZBiXT7qOHzxoxqnYurIiYW8t');
+var stripe = require('stripe')('sk_test_ZBiXT7qOHzxoxqnYurIiYW8t');
 
 function paginate(req, res, next){
   var perPage = 9;
@@ -246,27 +246,26 @@ router.get('/product/:id', function(req, res, next){
 // scroll down to --Which card numbers should I use for testing?
 
 router.post('/payment', function(req, res, next) {
-
-// we are getting stripe token on the client side bc we are using req.body
+ // we are getting stripe token on the client side bc we are using req.body
   var stripeToken = req.body.stripeToken;
   // this is the total price of your cart
-  // we are * by 100 bc stripe is made in cents
-  var currentCharges = Math.round(req.body.stripeMoney * 100);
-  // everything before .then is a stripe method to create a customer
-  // you can see which user who bouht your items with this function
-  stripe.customers.create({
+  var currentCharges = Math.round(req.body.amount); // already in cents
+  console.log(req.body);
+  var charge = stripe.charges.create({
+    amount: currentCharges, // amount in cents, again
+    currency: "usd",
     source: stripeToken,
-      // this is using a promise.. after the code above runs then it 
-    // will run the next code
-  }).then(function(customer) {
-    // this is all the information so that you can charge the customer
-    return stripe.charges.create({
-      // this is connected to currentCharges above
-      amount: currentCharges,
-      currency: 'usd',
-      customer: customer.id
-    });
-  }).then(function(charge) {
+    description: "Example charge"
+  }, function(err, charge) {
+    if (err && err.type === 'StripeCardError') {
+      // The card has been declined
+    }
+
+    // do whaterver you want to do here
+    // update your data
+    // redirect
+  },
+  function(charge) {
     async.waterfall([
       // we are searching the cart owner and once we have found the 
       // cart we want to pass it to a second function
@@ -311,7 +310,31 @@ router.post('/payment', function(req, res, next) {
         });
       }
     ]);
-  });
+ }
+
+  );
+// // we are getting stripe token on the client side bc we are using req.body
+//   var stripeToken = req.body.stripeToken;
+//   // this is the total price of your cart
+//   // we are * by 100 bc stripe is made in cents
+//   var currentCharges = Math.round(req.body.stripeMoney * 100);
+//   // everything before .then is a stripe method to create a customer
+//   // you can see which user who bouht your items with this function
+//   stripe.customers.create({
+//     source: stripeToken,
+//       // this is using a promise.. after the code above runs then it 
+//     // will run the next code
+//   }).then(function(customer) {
+//     // this is all the information so that you can charge the customer
+//     console.log("Customer:", customer, "currentCharges:", currentCharges);
+//     return stripe.charges.create({
+//       // this is connected to currentCharges above
+//       amount: currentCharges,
+//       currency: 'usd',
+//       customer: customer.id
+//     });
+
+  
 });
 
 

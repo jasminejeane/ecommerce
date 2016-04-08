@@ -18,10 +18,10 @@
 
         <% for (var i = 0; i < foundCart.items.length; i++) { %>
           <div class="list-group">
-            <span class="list-group-item">
+            <span class="list-group-item cartBg">
               <div class="row">
                 <div class="col-md-3">
-                  <span class="thumbnail"><img class="product-image" src=""></span> 
+                  <span class="thumbnail"><img class="product-image" src="<%= foundCart.items[i].item.image %>"></span> 
                   </div>
                 
 
@@ -54,12 +54,12 @@
 
         <div class="col-md-3">
           <div class="list-group">
-            <span class="list-group-item">
+            <span class="list-group-item cartBg">
               <h4>Total: $<span class="totalPrice"><%= foundCart.total %></span></h4>
 
               <div class="form-group">
                 <input type="hidden" value="<%= foundCart.total %>">
-                <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Pay with Stripe</button>
+                <button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal">Purchase</button>
               </div>
             </span>
 
@@ -67,82 +67,20 @@
         </div>
 
 <!-- modal -->
+<form action="/payment" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_1dgi3umhSBiRQxHkBsjuJemD"
+    data-amount="<%= foundCart.total*100 %>"
+    data-name="Demo Site"
+    data-description="2 widgets ($20.00)"
+    data-image="/128x128.png"
+    data-locale="auto">
+  </script>
+  <input type="hidden" name="amount" value="<%= foundCart.total*100 %>">
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Pay with Stripe</h4>
-              </div>
-              <div class="modal-body">
-
-
-             <!-- Credit card form -->
-  <!-- you can get different designs from bootsnipp.com just search (stripe)-->
-                <div class="container">
-                  <div class="row">
-                    <div class="col-xs-12 col-md-4">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h3 class="panel-title"><img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
-                        </div>
-                        <div class="panel-body">
-                          <form role="form" id="payment-form" action="/payment" method="POST">
-                             <!-- the name 'stripeMoney' refers to the /payment route in main.js  -->
-                          <!-- the reason we need the input hidden field is bc we want to send the value of the total price to the server (main.js) to execute the /payment route-->
-                            <input type="hidden" name="stripeMoney" value="<%= foundCart.total %>">
-                            <div class="row">
-                              <div class="col-xs-12">
-                                <div class="form-group">
-                                  <label for="cardNumber">CARD NUMBER</label>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
-                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-xs-7 col-md-7">
-                                <div class="form-group">
-                                  <label for="expMonth">EXPIRATION DATE</label>
-                                  <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
-                                  </div>
-                                  <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-xs-5 col-md-5 pull-right">
-                                <div class="form-group">
-                                  <label for="cvCode">CV CODE</label>
-                                  <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-xs-12">
-                                <button class="btn btn-success btn-lg btn-block" type="submit">Pay: $(<%= foundCart.total %>)</button>
-                              </div>
-                            </div>
-                            <div class="row" style="display:none;">
-                              <div class="col-xs-12">
-                                <p class="payment-errors"></p>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+</form>
+        
 
       <div class="row">
         <div class="col-lg-2 col-md-offset-6">

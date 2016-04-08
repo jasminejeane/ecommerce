@@ -1,9 +1,9 @@
 <% layout('layout') -%>
 
-	<div class="jumbotron" id="navbar-gap">
+	<div class="jumbotron mainImg" id="navbar-gap">
 	  <div class="container">
-		<h1 class="text-center"> Find your Favorite Product</h1>
-		<p class="text-center">Search many of Ecommerce's products</p>
+		<h1 class="text-center mTitle"> Shopping Starts Here</h1>
+		<p class="text-center titleColor">Search many of Ecommerce's products</p>
 		<div class="row">
 		 <div class="col-md-6 col-md-offset-3">
 		 	<div class= "input-group col=md-12">
@@ -26,8 +26,8 @@
 	  <div class="col-md-4">
 		<a href="/product/<%= products[i]._id %>">
 		 <div class='thumbnail'>
-		  <img src="">
-		  <div class="caption">
+		  <img src="<%= products[i].image %>">
+		  <div class="caption captAlign ">
 		  <h3><%= products[i].name %></h3>
 		  <p><%= products[i].category.name %></p>
 		  <p><%= products[i].price %></p>

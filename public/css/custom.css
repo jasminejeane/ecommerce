@@ -2,13 +2,91 @@
 
 body {
 	padding-top: 100px;
+	margin-bottom: 60px;
+
+}
+
+@font-face {
+    font-family: discoverBeauty;
+    src: url('/fonts/DiscoverBeauty.ttf');
 }
 
 #navbar-gap {
 
 	margin-top: -4.5%;
+
 };
+
+
 
 .product-image {
 	width: 100%;
 }
+
+/*.bkgc {
+
+	 background-image: url("/images/bk1.jpg");
+}*/
+
+.mainImg {
+	 background: url("/images/hi3.jpg");
+	 background-size: cover;
+	 opacity: .9;
+}
+
+.titleColor {
+	color: white;
+}
+
+.mTitle {
+
+ color: rgb(255, 255, 255) !important;
+ font-family: discoverBeauty;
+ text-shadow: 0 0 50px black;
+  /*color: rgba(58,142,104, 0.55) !important;*/
+
+}
+
+.alignForm {
+	margin-right: 20%;
+}
+
+.profileBg {
+	background-color: rgba(255, 255, 255, 0.54);
+	padding: 5%;
+}
+
+.thumbnail,
+.cartBg {
+	background-color: rgba(255, 255, 255, 0.41);
+	border: 1px solid white;
+}
+
+.captAlign {
+	text-align: center;
+}
+
+ html {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: rgb(26, 26, 26);
+  text-align: center;
+  left: 0;
+
+}
+
+.jumbotron {
+	height: 100vh;
+}
+
+
+
+

@@ -49,19 +49,29 @@ router.get('/:name', function(req, res, next){
   },
 
 
+
 // category is passed here so that the function knows
 // that the id on product.category is refering to the 
 // category retrieved above
   function(category, callback){
+      var images = ['/images/fit1.jpeg','/images/fit2.jpeg','/images/fit3.jpeg','/images/fit4.jpeg','/images/fit5.jpeg',
+       '/images/fit6.jpeg','/images/fit7.jpeg','/images/fit8.jpeg','/images/fit9.jpeg','/images/fit10.jpeg','/images/fit11.jpeg',
+      '/images/fit12.jpeg','/images/fit13.jpeg','/images/fit14.jpeg','/images/fit15.jpeg','/images/fit16.jpeg', '/images/fit17.jpeg',
+      '/images/fit18.jpeg','/images/fit19.jpeg','/images/fit20.jpeg','/images/fit21.jpeg','/images/fit22.jpeg','/images/fit23.jpeg',
+      '/images/fit24.jpeg','/images/fit25.jpeg','/images/fit26.jpeg','/images/fit27.jpeg','/images/fit28.jpeg','/images/fit29.jpeg',
+      '/images/fit30.jpeg'];
     for (var i =0; i < 30; i++){
+
       var product = new Product();
+     
       product.category = category._id;
       // faker gives you fake data
       // we are using faker methods commerce. product name etc.
       // to get fake data w/o having to do it ourself!!!
       product.name = faker.commerce.productName();
       product.price = faker.commerce.price();
-      product.image = faker.image.image();
+
+      product.image = images[i];
 
       product.save();
 
