@@ -10,14 +10,16 @@
     <a class="navbar-brand" href="/">BoHo GLO</a>
     </div>
 
-    <form class="navbar-form navbar-left" method="post" action="/search">
+
+<!-- Removing Search for heroku -->
+   <!--  <form class="navbar-form navbar-left" method="post" action="/search">
       <div class="form-group">
       <input type="text" name="q" class="form-control navCSS" placeholder="Search">
       <button type="submit" class="btn btn-default">Submit</button>
 
       </div>
     </form>
-  
+   -->
       <ul class="nav navbar-nav navbar-right">
 
 
@@ -51,11 +53,12 @@
       <% } %>
 
 
+<!-- the carts link should be href="/cart" disabling it bc it doesn't work on heroku -->
         <% if (user) { %>
-        <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge"><%= cart %></span></a></li>
+        <li><a href="#" class="glyphicon glyphicon-shopping-cart"><span class="badge"><%= cart %></span></a></li>
 
         <% } else { %>
-           <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge">0</span></a></li>
+           <li><a href="#" class="glyphicon glyphicon-shopping-cart"><span class="badge">0</span></a></li>
         <% } %>
 
 
