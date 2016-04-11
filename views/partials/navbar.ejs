@@ -55,10 +55,10 @@
 
 <!-- the carts link should be href="/cart" disabling it bc it doesn't work on heroku -->
         <% if (user) { %>
-        <li><a href="#" class="glyphicon glyphicon-shopping-cart"><span class="badge"><%= cart %></span></a></li>
+        <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge"><%= cart %></span></a></li>
 
         <% } else { %>
-           <li><a href="#" class="glyphicon glyphicon-shopping-cart"><span class="badge">0</span></a></li>
+           <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge">0</span></a></li>
         <% } %>
 
 
