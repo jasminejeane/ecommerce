@@ -23,6 +23,7 @@
    <div class='row' id="searchResults">
 
     <% for (var i= 0; i < products.length; i++) { %>
+
 	  <div class="col-md-4">
 		<a href="/product/<%= products[i]._id %>">
 		 <div class='thumbnail'>
@@ -36,6 +37,12 @@
 		</a>
 	   </div>
 	  <% } %>
+
+
+
+
+
+	  
 		<ul class="pagination text-center"> 
 			<li>
 <!-- the pages variable comes from the variable pages on the main js routes file where the pagination function is defined -->
