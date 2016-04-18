@@ -1,16 +1,21 @@
 
-
-body {
-	padding-top: 100px;
-	margin-bottom: 60px;
-	font-family: 'Geneva';
-
-}
-
 @font-face {
     font-family: discoverBeauty;
     src: url('/fonts/DiscoverBeauty.ttf');
 }
+
+body {
+	padding-top: 100px;
+	margin-bottom: 60px;
+	font-family: 'Slabo';
+
+}
+
+nav {
+font-family: 'Slabo';
+}
+
+
 
 #navbar-gap {
 
