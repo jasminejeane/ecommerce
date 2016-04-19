@@ -3,7 +3,7 @@ Boho Glo is an e-commerce site that offers bohemian style clothes for purchase. 
 Technology: Mongo, Mongoose, Node.js, Express, Ajax, Stripe, Elastic Search, Bootstrap.
 
 Instructions
-If would like to save time signing up
+If would like to save time signing up <br>
 Guest Login Information
 email: guest@gmail.com
 password: password
