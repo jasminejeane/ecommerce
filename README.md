@@ -8,7 +8,7 @@ Mongo, Mongoose, Node.js, Express, Ajax, Stripe, Elastic Search, Bootstrap.
 ###Instructions
 If would like to save time signing up <br>
 Guest Login Information<br>
-email: guest@gmail.com<br>
+email: newguest@gmail.com<br>
 password: password<br>
 Shopping<br>
 Credit Card: 4242 4242 4242 4242<br>
