@@ -14,4 +14,4 @@ Shopping<br>
 Credit Card: 4242 4242 4242 4242<br>
 Exp: 01/20<br>
 CVC: 111<br>
-You may have to adjust the email by adding a number or letter bc the email may already be logged as registerd at payment checkout
+You may have to adjust the email by adding a number or letter bc the email may already be logged as registered at payment checkout
